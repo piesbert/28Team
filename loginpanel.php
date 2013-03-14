@@ -42,8 +42,8 @@ class LoginPanel extends Builder {
 	
 	private function createLoginForm($form) {
 		$hidden   = new Element('input', array('type' => 'hidden', 'name' => 'action_login', 'value' => 'true'));
-		$username = new Element('input', array('type' => 'text', 'name' => 'login_form_login', 'id' => 'text_field', 'size' => '10'));
-		$password = new Element('input', array('type' => 'password', 'name' => 'login_form_password', 'id' => 'text_field', 'size' => '10'));
+		$username = new Element('input', array('type' => 'text', 'name' => 'login_form_login', 'class' => 'text_field', 'size' => '10'));
+		$password = new Element('input', array('type' => 'password', 'name' => 'login_form_password', 'class' => 'text_field', 'size' => '10'));
 		$submit   = new Element('input', array('type' => 'submit', 'value' => $this->getText('LOGIN_PANEL_LOGIN'), 'id' => 'submit_button'));
 	
 		$form->nest($hidden);

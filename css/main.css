@@ -88,7 +88,7 @@ text-align: right;
 vertical-align: middle;
 }
 
-.login_form input#text_field {
+.text_field {
 border-color: black;
 border-style: solid;
 border-width: thin;
@@ -129,4 +129,17 @@ font-family: verdana, arial, sans serif;
 font-size: 8pt;
 text-align: right;
 vertical-align: middle;
+}
+
+.main_menu_panel {
+position: relative;
+float: left;
+margin: 0px auto;
+background-color: #608040;
+width: 1000px;
+height:23px;
+border-color: black;
+border-top-style: solid;
+border-bottom-style: solid;
+border-width: thin;
 }

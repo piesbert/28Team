@@ -24,16 +24,21 @@ class Window extends Builder {
     }
     
     public function build() {
-        $body    = new Element('body');
-        $builder = new Element('div', array('class' => 'builder'));
-        $window  = new Element('div', array('class' => 'window'));
-        $login   = new Element('div', array('class' => 'login_panel'));
+        $body     = new Element('body');
+        $builder  = new Element('div', array('class' => 'builder'));
+        $window   = new Element('div', array('class' => 'window'));
+        $login    = new Element('div', array('class' => 'login_panel'));
+        $menu = new Element('div', array('class' => 'main_menu_panel')); 
         
-        $loginpanel = new LoginPanel($login);
-        $loginpanel->build();
+        $loginPanel = new LoginPanel($login);
+        $loginPanel->build();
+        
+        $mainMenu = new MainMenu($menu);
+        $mainMenu->build();
         
         $window->nest($this->flags());
         $window->nest($login);
+        $window->nest($menu);
         
         $builder->nest($window);
         $builder->nest($this->vimPowered());
