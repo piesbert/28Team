@@ -24,13 +24,9 @@ class Window extends Builder {
     }
     
     public function build() {
-        $body = new Element('body');
-        
-        $builder = new Element('div');
-        $builder->set('class', 'builder');
-        
-        $window = new Element('div');
-        $window->set('class', 'window');
+        $body    = new Element('body');
+        $builder = new Element('div', array('class' => 'builder'));
+        $window  = new Element('div', array('class' => 'window'));
         
         $window->nest($this->flags());
         $window->nest($this->loginPanel());
@@ -64,7 +60,6 @@ class Window extends Builder {
     }
     
     private function loginForm() {
-        // TODO: Make all functions like this one
         $div      = new Element('div',   array('class' => 'login_form'));
         $form     = new Element('form',  array('action' => 'index.php', 'method' => 'post'));
         $hidden   = new Element('input', array('type' => 'hidden', 'name' => 'action_login', 'value' => 'true'));
@@ -86,23 +81,13 @@ class Window extends Builder {
     }
     
     private function flags() {
-        $div = new Element('div');
-        $div->set('class', 'flags');
-        
-        $pl = new Element('a');
-        $pl->set('href', 'index.php?lang=pl');
-        
-        $img_pl = new Element('img');
-        $img_pl->set('src', 'images/flags/pl.png');
+        $div    = new Element('div', array('class' => 'flags'));
+        $pl     = new Element('a',   array('href' => 'index.php?lang=pl'));
+        $img_pl = new Element('img', array('src' => 'images/flags/pl.png'));
+        $en     = new Element('a',   array('href' => 'index.php?lang=en'));
+        $img_en = new Element('img', array('src' => 'images/flags/en.png'));
         
         $pl->nest($img_pl);
-        
-        $en = new Element('a');
-        $en->set('href', 'index.php?lang=en');
-        
-        $img_en = new Element('img');
-        $img_en->set('src', 'images/flags/en.png');
-        
         $en->nest($img_en);
         
         $div->nest($pl);
@@ -112,11 +97,9 @@ class Window extends Builder {
     }
     
     private function forgot() {
-        $div = new Element('div');
-        $div->set('class', 'forgot');
+        $div  = new Element('div', array('class' => 'forgot'));
+        $link = new Element('a',   array('href', 'index.php?action=forgot'));
         
-        $link = new Element('a');
-        $link->set('href', 'index.php?action=forgot');
         $link->nest($this->getText('LOGIN_PANEL_FORGOT'));
         
         $div->nest($link);
