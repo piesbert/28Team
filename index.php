@@ -36,6 +36,8 @@ class Main {
     }
 }
 
+$_SESSION['logged_in'] = false;
+
 $main = new Main();
 $main->start();
 

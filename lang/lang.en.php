@@ -12,5 +12,6 @@ $lang['MAIN_MENU_REGISTRAION'] = 'Registration';
 $lang['LOGIN_PANEL_USERNAME'] = 'Username';
 $lang['LOGIN_PANEL_PASSWORD'] = 'Password';
 $lang['LOGIN_PANEL_LOGIN'] = 'Login';
+$lang['LOGIN_PANEL_LOGOUT'] = 'Logout';
 $lang['LOGIN_PANEL_FORGOT'] = 'Forgot password';
 ?>

@@ -27,9 +27,13 @@ class Window extends Builder {
         $body    = new Element('body');
         $builder = new Element('div', array('class' => 'builder'));
         $window  = new Element('div', array('class' => 'window'));
+        $login   = new Element('div', array('class' => 'login_panel'));
+        
+        $loginpanel = new LoginPanel($login);
+        $loginpanel->build();
         
         $window->nest($this->flags());
-        $window->nest($this->loginPanel());
+        $window->nest($login);
         
         $builder->nest($window);
         $builder->nest($this->vimPowered());
