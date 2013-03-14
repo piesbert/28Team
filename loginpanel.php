@@ -32,15 +32,15 @@ class LoginPanel extends Builder {
 		$this->nest($div);
 		
 		if (true == $_SESSION['logged_in']) {
-			$this->userInfo($form);
+			$this->createUserInfo($form);
 		}
 		else {
-			$this->loginForm($form);
+			$this->createLoginForm($form);
 			$this->nest($this->forgot());
 		}
 	}
 	
-	private function loginForm($form) {
+	private function createLoginForm($form) {
 		$hidden   = new Element('input', array('type' => 'hidden', 'name' => 'action_login', 'value' => 'true'));
 		$username = new Element('input', array('type' => 'text', 'name' => 'login_form_login', 'id' => 'text_field', 'size' => '10'));
 		$password = new Element('input', array('type' => 'password', 'name' => 'login_form_password', 'id' => 'text_field', 'size' => '10'));
@@ -55,7 +55,7 @@ class LoginPanel extends Builder {
 		$form->nest($submit);
 	}
 	
-	private function userInfo($form) {
+	private function createUserInfo($form) {
 		$hidden = new Element('input', array('type' => 'hidden', 'name' => 'action_logout', 'value' => 'true'));
 		$submit = new Element('input', array('type' => 'submit', 'value' => $this->getText('LOGIN_PANEL_LOGOUT'), 'id' => 'submit_button'));
 		
