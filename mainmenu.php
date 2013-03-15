@@ -1,5 +1,5 @@
 <?php
-/* File: builder.php
+/* File: mainmenu.php
  * Author: Sebasian Szymak
  *
  * This file is part of 28Team.
@@ -62,7 +62,7 @@ class MainMenu extends Builder {
 			$index = $_GET['menu'];
 			$_SESSION['menu'] = $index;
 		}
-		else if(isSet($_SESSION['menu'])) {
+		else if(isSet($_SESSION['menu']) && isset($_GET['lang'])) {
 			$index = $_SESSION['menu'];
 		}
 
