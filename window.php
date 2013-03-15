@@ -28,7 +28,7 @@ class Window extends Builder {
         $builder  = new Element('div', array('class' => 'builder'));
         $window   = new Element('div', array('class' => 'window'));
         $login    = new Element('div', array('class' => 'login_panel'));
-        $menu = new Element('div', array('class' => 'main_menu_panel')); 
+        $menu     = new Element('div', array('class' => 'main_menu_panel')); 
         
         $loginPanel = new LoginPanel($login);
         $loginPanel->build();

@@ -2,7 +2,7 @@
 global $lang;
 $lang = array();
 
-$lang['MAIN_MENU_HOME'] = 'Home';
+$lang['MAIN_MENU_HOME'] = 'Main Page';
 $lang['MAIN_MENU_NEWS'] = 'News';
 $lang['MAIN_MENU_ARENA_28'] = 'Arena 28';
 $lang['MAIN_MENU_LINKS'] = 'Links';
