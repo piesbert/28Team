@@ -138,11 +138,9 @@
 	margin: 0px auto;
 	background-color: rgb(85,107,47);
 	width: 1000px;
-	height: 23px;
-	border-color: black;
-	border-top-style: solid;
-	border-bottom-style: solid;
-	border-width: thin;
+	border-bottom: solid 1px rgb(0, 0, 0);
+	border-top: solid 1px rgb(0, 0, 0);
+	
 }
 
 .main_menu_panel ul {
@@ -157,18 +155,22 @@
 	list-style: none;
 	margin: 0px;
 	padding: 0px;
+
 }
 
 .main_menu_panel li a {
 	display: block; 
 	float: left; 
 	margin: 0px 0px 0px 0px;
-	padding: 5px 10px 5px 10px;
+	padding-left: 10px;
+	padding-right: 10px;
 	border-right: solid 1px rgb(0, 0, 0);
 	text-transform: uppercase;
 	text-decoration: none;
 	font-size: 10pt;
 	color: rgb(256, 256, 256);
+	vertical-align: middle;
+	line-height: 23px;
 }
 
 .main_menu_panel a:hover {
