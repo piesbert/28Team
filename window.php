@@ -29,6 +29,7 @@ class Window extends Builder {
         $window   = new Element('div', array('class' => 'window'));
         $login    = new Element('div', array('class' => 'login_panel'));
         $menu     = new Element('div', array('class' => 'main_menu_panel')); 
+        $content  = new Element('div', array('class' => 'content'));
         
         $loginPanel = new LoginPanel($login);
         $loginPanel->build();
@@ -36,9 +37,13 @@ class Window extends Builder {
         $mainMenu = new MainMenu($menu);
         $mainMenu->build();
         
+        $mainContent = new Content($content);
+        $mainContent->build();
+        
         $window->nest($this->flags());
         $window->nest($login);
         $window->nest($menu);
+        $window->nest($content);
         
         $builder->nest($window);
         $builder->nest($this->vimPowered());
