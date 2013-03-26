@@ -56,15 +56,7 @@ class MainMenu extends Builder {
 	}
 	
 	private function getCurrentIndex() {
-		$index = 1;
-		
-		if(isSet($_GET['menu'])) {
-			$index = $_GET['menu'];
-			$_SESSION['menu'] = $index;
-		}
-		else if(isSet($_SESSION['menu']) && isset($_GET['lang'])) {
-			$index = $_SESSION['menu'];
-		}
+		$index = SessionManager::getInstance()->getMenu();
 
 		if (!isset($this->menuItems[ $index ])) {
 			$index = 1;
