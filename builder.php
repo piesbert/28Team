@@ -29,8 +29,8 @@ abstract class Builder {
         $this->element->nest($element);
     }
     
-    final public function getText($id) {
-        return $GLOBALS['lang'][$id];
+    final static public function getText($id) {
+    	return $GLOBALS['lang'][$id];
     }
     
     abstract public function build();

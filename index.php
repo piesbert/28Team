@@ -18,6 +18,8 @@
  * along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+session_start();
+
 include_once('config.php');
 
 class Main {

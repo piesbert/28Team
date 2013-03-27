@@ -18,7 +18,6 @@
  * along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-session_start();
 header('Cache-control: private'); // IE 6 fix
 
 function baseLoader($className) {

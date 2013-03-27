@@ -1,5 +1,5 @@
 <?php
-/* File: session.php
+/* File: sessionmanager.php
  * Author: Sebasian Szymak
  *
  * This file is part of 28Team.
@@ -20,9 +20,9 @@
 
 final class SessionManager {
 	private static $instance = false;
+	private static $menuList = array();
 	
 	private function __construct() {
-		session_start();
 	}
 	
 	public static function getInstance() {
@@ -33,7 +33,7 @@ final class SessionManager {
 		return self::$instance;
 	}
 	
-	public function getLang() {
+	public static function getLang() {
 		$lang = 'en';
 		
 		if(isSet($_GET['lang'])) {
@@ -53,7 +53,20 @@ final class SessionManager {
 		return $lang;
 	}
 	
-	public function getMenu() {
+	public static function getMenuList() {
+		self::$menuList = array();
+		
+		self::$menuList[1] = Builder::getText('MAIN_MENU_HOME');
+		self::$menuList[2] = Builder::getText('MAIN_MENU_NEWS');
+		self::$menuList[3] = Builder::getText('MAIN_MENU_ARENA_28');
+		self::$menuList[4] = Builder::getText('MAIN_MENU_LINKS');
+		self::$menuList[5] = Builder::getText('MAIN_MENU_CONTACT');
+		self::$menuList[6] = Builder::getText('MAIN_MENU_REGISTRAION');
+		
+		return self::$menuList;
+	}
+	
+	public static function getMenuIndex() {
 		$index = 1;
 		
 		if(isSet($_GET['menu'])) {
@@ -62,6 +75,10 @@ final class SessionManager {
 		}
 		else if(isSet($_SESSION['menu']) && isset($_GET['lang'])) {
 			$index = $_SESSION['menu'];
+		}
+		
+		if (!isset(self::$menuList[ $index ])) {
+			$index = 1;
 		}
 		
 		return $index;

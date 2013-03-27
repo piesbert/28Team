@@ -24,12 +24,7 @@ class MainMenu extends Builder {
 	public function __construct(Element $element) {
 		parent::__construct($element);
 		
-		$this->menuItems[1] = $this->getText('MAIN_MENU_HOME');
-		$this->menuItems[2] = $this->getText('MAIN_MENU_NEWS');
-		$this->menuItems[3] = $this->getText('MAIN_MENU_ARENA_28');
-		$this->menuItems[4] = $this->getText('MAIN_MENU_LINKS');
-		$this->menuItems[5] = $this->getText('MAIN_MENU_CONTACT');
-		$this->menuItems[6] = $this->getText('MAIN_MENU_REGISTRAION');
+		$this->menuItems = SessionManager::getInstance()->getMenuList();
 	}
 	
 	public function build() {
@@ -43,7 +38,7 @@ class MainMenu extends Builder {
 			$li = new Element('li');
 			$a  = new Element('a', array('href' => 'index.php?menu=' . $key));
 			
-			if ($key == $this->getCurrentIndex()) {
+			if ($key == SessionManager::getInstance()->getMenuIndex()) {
 				$a->set('class', 'selected');
 			}
 			
@@ -53,16 +48,6 @@ class MainMenu extends Builder {
 		}
 		
 		return $ul;
-	}
-	
-	private function getCurrentIndex() {
-		$index = SessionManager::getInstance()->getMenu();
-
-		if (!isset($this->menuItems[ $index ])) {
-			$index = 1;
-		}
-		
-		return $index;
 	}
 }
 ?>
