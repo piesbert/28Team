@@ -18,16 +18,6 @@
  * along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-switch (SessionManager::getInstance()->getLang()) {
-    case 'en':
-        $lang_file = 'lang.en.php';
-        break;
-    case 'pl':
-        $lang_file = 'lang.pl.php';
-        break;
-    default:
-        $lang_file = 'lang.pl.php';
-}
-
-include_once 'lang/' . $lang_file;
+include_once 'lang/lang.' . SessionManager::getInstance()->getLang() . '.php';
+include_once 'lang/lang.' . SessionManager::getInstance()->getLang() . '.country.php';
 ?>

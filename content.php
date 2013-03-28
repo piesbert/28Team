@@ -24,6 +24,30 @@ class Content extends Builder {
 	}
 	
 	public function build() {
+		$title = new Element('div', array('class' => 'content_title'));
+		$element  = new Element('div', array('class' => 'content_window'));
+		
+		switch(SessionManager::getInstance()->getMenuIndex()) {
+			case 1:
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			case 4:
+				break;
+			case 5:
+				break;
+			case 6: 
+				$registration = new Registration($element);
+				$registration->build();
+				
+				$title->nest($this->getText('TITLE_REGISTRATION'));
+				break;
+		}
+		
+		$this->nest($title);
+		$this->nest($element);
 	}
 }
 ?>

@@ -21,7 +21,7 @@
 class Element {
     private static $TEXT = 'innerHtml';
     
-    private static $unitags = array('meta', 'base', 'link', 'img', 'br', 'hr', 'param', 'input', 'option', 'col');
+    private static $unitags = array('meta', 'base', 'link', 'img', 'br', 'hr', 'param', 'input', 'col');
     
     private $tag;
     private $nested;
