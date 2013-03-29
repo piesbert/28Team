@@ -50,5 +50,12 @@ $lang['REGISTRATION_LASTNAME'] = 'Nazwisko';
 $lang['REGISTRATION_COUNTRY'] = 'Kraj';
 $lang['REGISTRATION_REGISTER'] = 'Zarejestruj';
 
+$lang['REGISTRATION_ERROR_NULL_USERNAME'] = 'Nazwa użytkownika nie może być pusta.';
+$lang['REGISTRATION_ERROR_NULL_PASSWORD'] = 'Hasło nie może być puste.';
+$lang['REGISTRATION_ERROR_SAME_PASSWORD'] = 'Wpisane hasła muszą być identyczne.';
+$lang['REGISTRATION_ERROR_LENGTH_PASSWORD'] = 'Hasło musi zawierać minimum 8 znaków';
+$lang['REGISTRATION_ERROR_VALID_EMAIL'] = 'Wprowadź poprawny adres e-mail.';
+$lang['REGISTRATION_ERROR_SAME_EMAIL'] = 'Podane adresy e-mail muszą być identyczne.';
+
 $lang['COUNTRY_POLAND'] = 'Polska';
 ?>

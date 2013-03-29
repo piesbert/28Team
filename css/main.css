@@ -259,7 +259,23 @@
 	border-width: thin;
 	margin-left: 20px;
 	width: 300px;
-	background-color: rgb(255, 230, 230);
+	background-color: rgb(255, 255, 255);
 	border-color: rgb(200, 0, 0);
+}
+
+.registration_text_field_wrong {
+	border-color: black;
+	border-style: solid;
+	border-width: thin;
+	margin-left: 20px;
+	width: 300px;
+	background-color: rgb(255, 200, 200);
+	border-color: rgb(200, 0, 0);
+}
+
+.registration_error {
+	font-size: 8pt;
+	margin-left: 20px;
+	color: rgb(255,100,100);
 }
 

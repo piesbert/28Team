@@ -50,5 +50,12 @@ $lang['REGISTRATION_LASTNAME'] = 'Last Name';
 $lang['REGISTRATION_COUNTRY'] = 'Country';
 $lang['REGISTRATION_REGISTER'] = 'Register';
 
+$lang['REGISTRATION_ERROR_NULL_USERNAME'] = 'Username must be not empty.';
+$lang['REGISTRATION_ERROR_NULL_PASSWORD'] = 'Password must be not empty.';
+$lang['REGISTRATION_ERROR_SAME_PASSWORD'] = 'Both passwords must be the same.';
+$lang['REGISTRATION_ERROR_LENGTH_PASSWORD'] = 'Minimum password length is 8 characters.';
+$lang['REGISTRATION_ERROR_VALID_EMAIL'] = 'Enter valid e-mail address.';
+$lang['REGISTRATION_ERROR_SAME_EMAIL'] = 'Both e-mails must be the same.';
+
 $lang['COUNTRY_POLAND'] = 'Poland';
 ?>
