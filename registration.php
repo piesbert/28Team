@@ -18,284 +18,158 @@
  * along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class Registration extends Builder {
-	private $hidden;
-	private $username;  
-	private $password;  
-	private	$repassword;
-	private $email;
-	private	$reemail;
-	private $firstname;
-	private $lastname;
-	private	$country;
-	private	$submit;
+class Registration {
+	private $form = NULL;
+	private $list = array();
 	
-	private $v_username;
-	private $v_password;
-	private	$v_repassword;
-	private $v_email;
-	private	$v_reemail;
-	private $v_firstname;
-	private $v_lastname;
-	private	$v_country;
+	private $username  = '';
+	private $password1 = '';
+	private $password2 = '';
+	private $email1    = '';
+	private $email2    = '';
+	private $firstname = '';
+	private $lastname  = '';
 	
-	private $usernameError;
-	private $passwordError;
-	private $emailError;
-	
-	private $error;
-	 
-	public function __construct($element) {
-		parent::__construct($element);
-		
-		$this->hidden     = new Element('input', array('type' => 'hidden', 'name' => 'action_register', 'value' => 'true'));
-		$this->username   = new Element('input', array('type' => 'text', 'name' => 'registration_form_username', 'class' => 'registration_text_field_must_be'));
-		$this->password   = new Element('input', array('type' => 'password', 'name' => 'registration_form_password', 'class' => 'registration_text_field_must_be'));
-		$this->repassword = new Element('input', array('type' => 'password', 'name' => 'registration_form_reenter_password', 'class' => 'registration_text_field_must_be'));
-		$this->email      = new Element('input', array('type' => 'text', 'name' => 'registration_form_email', 'class' => 'registration_text_field_must_be'));
-		$this->reemail    = new Element('input', array('type' => 'text', 'name' => 'registration_form_reenter_email', 'class' => 'registration_text_field_must_be'));
-		$this->firstname  = new Element('input', array('type' => 'text', 'name' => 'registration_form_firstname', 'class' => 'registration_text_field'));
-		$this->lastname   = new Element('input', array('type' => 'text', 'name' => 'registration_form_lastname', 'class' => 'registration_text_field'));
-		$this->country    = new Element('select', array('type' => 'text', 'name' => 'registration_form_country', 'class' => 'registration_select_field'));
-		$this->submit     = new Element('input', array('type' => 'submit', 'value' => $this->getText('REGISTRATION_REGISTER'), 'id' => 'submit_button'));
-		
-		$this->v_country  = 'PL'; 
-		
-		$this->usernameError = '';
-		$this->passwordError = '';
-		$this->emailError = '';
+	public function __construct() {
 	}
 	
-	public function build() {
-		$this->validateForm();
-		
-		$info = new Element('ul', array('class' => 'registration_info'));
-		$form = new Element('form', array('class' => 'registration_form', 'action' => 'index.php?menu=6', 'method' => 'post'));
-		
-		$this->nest($info);
-		$this->nest($form);
-		
-		$this->createInfo($info);	
-		$this->createForm($form);
+	public function get() {
+		$this->build();
+		return $this->form;
 	}
 	
-	private function createInfo($info) {
-		$li = new Element('li');
-		$li->nest($this->getText('REGISTRATION_INFO_1'));
-		$info->nest($li);
-		
-		$li = new Element('li');
-		$li->nest($this->getText('REGISTRATION_INFO_2'));
-		$info->nest($li);
-		
-		$li = new Element('li');
-		$li->nest($this->getText('REGISTRATION_INFO_3'));
-		$info->nest($li);
+	private function build() {
+		if (!$this->isFormValid()) {
+			$this->generateList();
+			$this->form = new Template('templates/registrationform.php', $this->list);
+		}
 	}
 	
-	private function createForm($form) {
-		$form->nest($this->hidden);
-		$form->nest($this->getText('REGISTRATION_USERNAME') . ':');
-		$form->nest(new Element('br'));
-		$form->nest($this->username);
-		$form->nest(new Element('br'));
-		if ('' != $this->usernameError) {
-			$error = new Element('span', array('class' => 'registration_error'));
-			$error->set('innerHtml', $this->usernameError);
-			$form->nest($error);
-			$form->nest(new Element('br'));
-		}
-		$form->nest($this->getText('REGISTRATION_PASSWORD') . ':');
-		$form->nest(new Element('br'));
-		$form->nest($this->password);
-		$form->nest(new Element('br'));		
-		if ('' != $this->passwordError) {
-			$error = new Element('span', array('class' => 'registration_error'));
-			$error->set('innerHtml', $this->passwordError);
-			$form->nest($error);
-			$form->nest(new Element('br'));
-		}
-		$form->nest($this->getText('REGISTRATION_REENTER_PASSWORD') . ':');
-		$form->nest(new Element('br'));
-		$form->nest($this->repassword);
-		$form->nest(new Element('br'));
-		$form->nest($this->getText('REGISTRATION_EMAIL') . ':');
-		$form->nest(new Element('br'));
-		$form->nest($this->email);
-		$form->nest(new Element('br'));
-		if ($this->getText('REGISTRATION_ERROR_VALID_EMAIL') == $this->emailError) {
-			$error = new Element('span', array('class' => 'registration_error'));
-			$error->set('innerHtml', $this->emailError);
-			$form->nest($error);
-			$form->nest(new Element('br'));
-		}
-		$form->nest($this->getText('REGISTRATION_REENTER_EMAIL') . ':');
-		$form->nest(new Element('br'));
-		$form->nest($this->reemail);
-		$form->nest(new Element('br'));
-		if ($this->getText('REGISTRATION_ERROR_SAME_EMAIL') == $this->emailError) {
-			$error = new Element('span', array('class' => 'registration_error'));
-			$error->set('innerHtml', $this->emailError);
-			$form->nest($error);
-			$form->nest(new Element('br'));
-		}
-		$form->nest($this->getText('REGISTRATION_FIRSTNAME') . ':');
-		$form->nest(new Element('br'));
-		$form->nest($this->firstname);
-		$form->nest(new Element('br'));
-		$form->nest($this->getText('REGISTRATION_LASTNAME') . ':');
-		$form->nest(new Element('br'));
-		$form->nest($this->lastname);
-		$form->nest(new Element('br'));
-		$form->nest($this->getText('REGISTRATION_COUNTRY') . ':');
-		$form->nest(new Element('br'));
-		$form->nest($this->country);
-		$form->nest(new Element('br'));
-		$form->nest($this->submit);
+	private function isFormValid() {
+		$valid = false;
 		
-		$this->createCountryList($this->country);
-	}
-	
-	private function validateForm() {
-		if ('true' == $_POST['action_register']) {
+		$this->setupMustBeFields();
+		
+		if (isset($_POST['action_register']) && 'true' == $_POST['action_register']) {
+			$valid = true;
+			
+			$this->readFormValues();
+			
+			$this->clearErrors();
 			$this->setupFields();
-			$this->validateUsername();
-			$this->validatePassword();
-			$this->validateEmail();
+			
+			/* check username length (min 1 character)
+			 */
+			$length = strlen($this->username);
+			if (1 > $length) {
+				$this->list['error_username'] = $this->getError(tr('REGISTRATION_ERROR_NULL_USERNAME'));
+				$this->list['class_username'] = "registration_text_field_wrong";
+				$valid = false;
+			}
+			
+			/* check password length (min 8 characters)
+			 */
+			$length = strlen($this->password1);
+			if (0 == $length) {
+				$this->list['error_password1'] = $this->getError(tr('REGISTRATION_ERROR_NULL_PASSWORD'));
+				$this->list['class_password1'] = "registration_text_field_wrong";
+				$valid = false;
+			}
+			else if (8 > $length) {
+				$this->list['error_password1'] = $this->getError(tr('REGISTRATION_ERROR_LENGTH_PASSWORD'));
+				$this->list['class_password1'] = "registration_text_field_wrong";
+				$valid = false;
+			}
+			
+			/* check if passwordds are identical
+			 * !!! <else> from previous <if>
+			 */
+			else if ($this->password1 != $this->password2) {
+				$this->list['error_password2'] = $this->getError(tr('REGISTRATION_ERROR_SAME_PASSWORD'));
+				$this->list['class_password1'] = "registration_text_field_wrong";
+				$this->list['class_password2'] = "registration_text_field_wrong";
+				$valid = false;
+			}
+			
+			/* check if email address is valid
+			 */
+			if (!$this->isEmailValid($this->email1)) {
+				$this->list['error_email1'] = $this->getError(tr('REGISTRATION_ERROR_VALID_EMAIL'));
+				$this->list['class_email1'] = "registration_text_field_wrong";
+				$valid = false;
+			}
+			/* check if both emails are the same
+			 */
+			else if ($this->email1 != $this->email2) {
+				$this->list['error_email2'] = $this->getError(tr('REGISTRATION_ERROR_SAME_EMAIL'));
+				$this->list['class_email2'] = "registration_text_field_wrong";
+				$valid = false;
+			}
 		}
+		
+		return $valid;
+		
 	}
 	
-	private function split($str) {
-		return htmlspecialchars(stripslashes(strip_tags(trim($str)))); 
+	private function clearErrors() {
+		$this->list['error_username'] = '';
+		$this->list['error_password1'] = '';
+		$this->list['error_password2'] = '';
+		$this->list['error_email1'] = '';
+		$this->list['error_email2'] = '';
+	}
+	
+	private function setupMustBeFields() {
+		$this->list['class_username']  = "registration_text_field_must_be";
+		$this->list['class_password1'] = "registration_text_field_must_be";
+		$this->list['class_password2'] = "registration_text_field_must_be";
+		$this->list['class_email1']    = "registration_text_field_must_be";
+		$this->list['class_email2']    = "registration_text_field_must_be";
 	}
 	
 	private function setupFields() {
-		$this->v_username   = $this->split($_POST['registration_form_username']);
-		$this->v_password   = $this->split($_POST['registration_form_password']);
-		$this->v_repassword = $this->split($_POST['registration_form_reenter_password']);
-		$this->v_email      = $this->split($_POST['registration_form_email']);
-		$this->v_reemail    = $this->split($_POST['registration_form_reenter_email']);
-		$this->v_firstname  = $this->split($_POST['registration_form_firstname']);
-		$this->v_lastname   = $this->split($_POST['registration_form_lastname']);
-		$this->v_country    = $this->split($_POST['registration_form_country']);
+		$this->list['v_username']  = $this->username;
+		$this->list['v_email']     = $this->email1;
+		$this->list['v_rentemail'] = $this->email2;
+		$this->list['v_firstname'] = $this->firstname;
+		$this->list['v_lastname']  = $this->lastname;
+	}
+	
+	private function getError($text) {
+		$error  = "<span class=\"registration_error\">";
+		$error .= $text;
+		$error .= "</span><br/>";
 		
-		$this->username->set('value', $this->v_username);
-		$this->password->set('value', $this->v_password);
-		$this->repassword->set('value', $this->v_repassword);
-		$this->email->set('value', $this->v_email);
-		$this->reemail->set('value', $this->v_reemail);
-		$this->firstname->set('value', $this->v_firstname);
-		$this->lastname->set('value', $this->v_lastname);
+		return $error;
 	}
 	
-	private function validateUsername() {
-		$length = strlen($this->v_username);
+	private function generateList() {
+		$this->list['reginfo01'] = tr('REGISTRATION_INFO_1');
+		$this->list['reginfo02'] = tr('REGISTRATION_INFO_2');
+		$this->list['reginfo03'] = tr('REGISTRATION_INFO_3');
 		
-		if ($length < 1) {
-			$this->usernameError = $this->getText('REGISTRATION_ERROR_NULL_USERNAME');
-			$this->username->set('class', 'registration_text_field_wrong');
-		}
+		$this->list['username']  = tr('REGISTRATION_USERNAME');
+		$this->list['password']  = tr('REGISTRATION_PASSWORD');
+		$this->list['rentpass']  = tr('REGISTRATION_REENTER_PASSWORD');
+		$this->list['email']     = tr('REGISTRATION_EMAIL');
+		$this->list['rentemail'] = tr('REGISTRATION_REENTER_EMAIL');
+		$this->list['firstname'] = tr('REGISTRATION_FIRSTNAME');
+		$this->list['lastname']  = tr('REGISTRATION_LASTNAME');
+		$this->list['register']  = tr('REGISTRATION_REGISTER');
 	}
 	
-	private function validatePassword() {
-		if ("" == $this->v_password) {
-			$this->passwordError = $this->getText('REGISTRATION_ERROR_NULL_PASSWORD');
-		}
-		else if (strlen($this->v_password) < 8) {
-			$this->passwordError = $this->getText('REGISTRATION_ERROR_LENGTH_PASSWORD');
-		}
-		else if ($this->v_password != $this->v_repassword) {
-			$this->passwordError = $this->getText('REGISTRATION_ERROR_SAME_PASSWORD');
-		}
-		
-		if ('' != $this->passwordError) {
-			$this->password->set('value', '');
-			$this->password->set('class', 'registration_text_field_wrong');
-			$this->repassword->set('value', '');
-			$this->repassword->set('class', 'registration_text_field_wrong');
-		}
-	}
-	
-	private function validateEmail() {
-		if(!$this->isEmailValid($this->v_email)) {
-			$this->emailError = $this->getText('REGISTRATION_ERROR_VALID_EMAIL');
-			
-			$this->email->set('value', '');
-			$this->email->set('class', 'registration_text_field_wrong');
-			$this->reemail->set('value', '');
-			$this->reemail->set('class', 'registration_text_field_wrong');
-		}
-		else if($this->v_email != $this->v_reemail) {
-			$this->emailError = $this->getText('REGISTRATION_ERROR_SAME_EMAIL');
-			
-			$this->reemail->set('value', '');
-			$this->reemail->set('class', 'registration_text_field_wrong');
-		}
-	}
-	
-	private function createCountryList($country) {
-		foreach($GLOBALS['country_list'] as $short => $long) {
-			$option = new Element('option', array('value' => $short));
-			$option->set('innerHtml', $long);
-			
-			if ($this->v_country == $short) {
-				$option->set('selected', 'selected');
-			}
-			
-			$country->nest($option);
-		}
+	private function readFormValues() {
+		$this->username  = clear($_POST['registration_username']);
+		$this->password1 = clear($_POST['registration_password']);
+		$this->password2 = clear($_POST['registration_reenter_password']);
+		$this->email1    = clear($_POST['registration_email']);
+		$this->email2    = clear($_POST['registration_reenter_email']);
+		$this->firstname = clear($_POST['registration_firstname']);
+		$this->lastname  = clear($_POST['registration_lastname']);
 	}
 	
 	private function isEmailValid($email) {
-		$isValid = true;
-		$atIndex = strrpos($email, "@");
-		
-		if (is_bool($atIndex) && !$atIndex) {
-			$isValid = false;
-		}
-		else {
-			$domain = substr($email, $atIndex+1);
-			$local = substr($email, 0, $atIndex);
-			$localLen = strlen($local);
-			$domainLen = strlen($domain);
-			
-			if ($localLen < 1 || $localLen > 64) {
-				// local part length exceeded
-				$isValid = false;
-			}
-			else if ($domainLen < 1 || $domainLen > 255) {
-				// domain part length exceeded
-				$isValid = false;
-			}
-			else if ($local[0] == '.' || $local[$localLen-1] == '.') {
-				// local part starts or ends with '.'
-				$isValid = false;
-			}
-			else if (preg_match('/\\.\\./', $local)) {
-				// local part has two consecutive dots
-				$isValid = false;
-			}
-			else if (!preg_match('/^[A-Za-z0-9\\-\\.]+$/', $domain)) {
-				// character not valid in domain part
-				$isValid = false;
-			}
-			else if (preg_match('/\\.\\./', $domain)) {
-				// domain part has two consecutive dots
-				$isValid = false;
-			}
-			else if (!preg_match('/^(\\\\.|[A-Za-z0-9!#%&`_=\\/$\'*+?^{}|~.-])+$/', str_replace("\\\\","",$local)))	{
-				// character not valid in local part unless
-				// local part is quoted
-				if (!preg_match('/^"(\\\\"|[^"])+"$/', str_replace("\\\\","",$local))) {
-					$isValid = false;
-				}
-			}
-			if ($isValid && !(checkdnsrr($domain,"MX") || checkdnsrr($domain,"A"))) {
-				// domain not found in DNS
-				$isValid = false;
-			}
-		}
-		return $isValid;
+		return filter_var($email, FILTER_VALIDATE_EMAIL);
 	}
 }
 ?>

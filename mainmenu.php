@@ -4,50 +4,53 @@
  *
  * This file is part of 28Team.
  *
- * Foobar is free software: you can redistribute it and/or modify
+ * 28Team is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Foobar is distributed in the hope that it will be useful,
+ * 28Team is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+ * along with 28Team.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class MainMenu extends Builder {
-	private $menuItems = array();
+class MainMenu {
+	private $mainMenu = NULL;
 	
-	public function __construct(Element $element) {
-		parent::__construct($element);
-		
-		$this->menuItems = SessionManager::getInstance()->getMenuList();
+	public function __construct() {
 	}
 	
-	public function build() {
-		$this->nest($this->menuList());
+	public function get() {
+		$this->build();
+		return $this->mainMenu;
 	}
 	
-	private function menuList() {
-		$ul = new Element('ul');
+	private function build() {
+		$sel = array(1 => '', 2 => '', 3 => '', 4 => '', 5 => '', 6 => '');
+		$menuList = array();
 		
-		foreach($this->menuItems as $key => $item) {
-			$li = new Element('li');
-			$a  = new Element('a', array('href' => 'index.php?menu=' . $key));
-			
-			if ($key == SessionManager::getInstance()->getMenuIndex()) {
-				$a->set('class', 'selected');
-			}
-			
-			$a->nest($item);
-			$li->nest($a);
-			$ul->nest($li);
+
+		$menuList['home']    = tr('MAIN_MENU_HOME');
+		$menuList['news']    = tr('MAIN_MENU_NEWS');
+		$menuList['area']    = tr('MAIN_MENU_AREA_28');
+		$menuList['links']   = tr('MAIN_MENU_LINKS');
+		$menuList['contact'] = tr('MAIN_MENU_CONTACT');
+		
+		if (SessionManager::isLoggedIn()) {
+			$menuList['user'] = tr('MAIN_MENU_USERDATA');
 		}
+		else {
+			$menuList['user'] = tr('MAIN_MENU_REGISTRATION');
+		} 
 		
-		return $ul;
+		$sel[SessionManager::getMenuIndex()] = ' class="selected"';
+		$menuList['sel'] = $sel;
+		
+		$this->mainMenu = new Template('templates/mainmenu.php', $menuList);
 	}
 }
 ?>

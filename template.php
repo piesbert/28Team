@@ -1,5 +1,5 @@
 <?php
-/* File: config.php
+/* File: template.php
  * Author: Sebasian Szymak
  *
  * This file is part of 28Team.
@@ -18,17 +18,21 @@
  * along with 28Team.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-header('Cache-control: private'); // IE 6 fix
+class Template {
+	private $args;
+	private $file;
 
-function baseLoader($className) {
-    include_once(strtolower($className) . ".php");
+	public function __get($name) {
+		return $this->args[$name];
+	}
+
+	public function __construct($file, $args = array()) {
+		$this->file = $file;
+		$this->args = $args;
+	}
+
+	public function render() {
+		include $this->file;
+	}
 }
-
-spl_autoload_register('baseLoader');
-
-function clear($text) {
-	return htmlspecialchars(stripslashes(strip_tags(trim($text))), ENT_QUOTES);
-}
-
-include_once 'language.php';
 ?>

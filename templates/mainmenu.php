@@ -1,5 +1,5 @@
 <?php
-/* File: config.php
+/* File: templates/loginpanel.php
  * Author: Sebasian Szymak
  *
  * This file is part of 28Team.
@@ -17,18 +17,14 @@
  * You should have received a copy of the GNU General Public License
  * along with 28Team.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-header('Cache-control: private'); // IE 6 fix
-
-function baseLoader($className) {
-    include_once(strtolower($className) . ".php");
-}
-
-spl_autoload_register('baseLoader');
-
-function clear($text) {
-	return htmlspecialchars(stripslashes(strip_tags(trim($text))), ENT_QUOTES);
-}
-
-include_once 'language.php';
 ?>
+<div class="main_menu_panel">
+<ul>
+<li><a href="index.php?menu=1"<?=$this->sel[1];?>><span><?=$this->home;?></span></a></li>
+<li><a href="index.php?menu=2"<?=$this->sel[2];?>><span><?=$this->news;?></span></a></li>
+<li><a href="index.php?menu=3"<?=$this->sel[3];?>><span><?=$this->area;?></span></a></li>
+<li><a href="index.php?menu=4"<?=$this->sel[4];?>><span><?=$this->links;?></span></a></li>
+<li><a href="index.php?menu=5"<?=$this->sel[5];?>><span><?=$this->contact;?></span></a></li>
+<li><a href="index.php?menu=6"<?=$this->sel[6];?>><span><?=$this->user;?></span></a></li>
+</ul>
+</div>

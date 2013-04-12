@@ -4,33 +4,41 @@
  *
  * This file is part of 28Team.
  *
- * Foobar is free software: you can redistribute it and/or modify
+ * 28Team is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Foobar is distributed in the hope that it will be useful,
+ * 28Team is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+ * along with 28Team.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 final class SessionManager {
 	private static $instance = false;
 	private static $menuList = array();
 	
+	private static $loginInfo = 'loginInfo';
+	
 	private function __construct() {
 	}
 	
-	public static function getInstance() {
-		if (self::$instance == false) {
-			self::$instance = new SessionManager();
+	public static function isLoggedIn() {
+		$loggedIn = false;
+		
+		if (isset($_SESSION[self::$loginInfo])) {
+			$loggedIn = true;
 		}
 		
-		return self::$instance;
+		return $loggedIn;
+	}
+	
+	public static function getUserName() {
+		return $_SESSION[self::$loginInfo];
 	}
 	
 	public static function getLang() {
@@ -53,19 +61,6 @@ final class SessionManager {
 		return $lang;
 	}
 	
-	public static function getMenuList() {
-		self::$menuList = array();
-		
-		self::$menuList[1] = Builder::getText('MAIN_MENU_HOME');
-		self::$menuList[2] = Builder::getText('MAIN_MENU_NEWS');
-		self::$menuList[3] = Builder::getText('MAIN_MENU_ARENA_28');
-		self::$menuList[4] = Builder::getText('MAIN_MENU_LINKS');
-		self::$menuList[5] = Builder::getText('MAIN_MENU_CONTACT');
-		self::$menuList[6] = Builder::getText('MAIN_MENU_REGISTRAION');
-		
-		return self::$menuList;
-	}
-	
 	public static function getMenuIndex() {
 		$index = 1;
 		
@@ -77,7 +72,7 @@ final class SessionManager {
 			$index = $_SESSION['menu'];
 		}
 		
-		if (!isset(self::$menuList[ $index ])) {
+		if ($index > 6 || $index < 1) {
 			$index = 1;
 		}
 		

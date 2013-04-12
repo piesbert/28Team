@@ -4,20 +4,24 @@
  *
  * This file is part of 28Team.
  *
- * Foobar is free software: you can redistribute it and/or modify
+ * 28Team is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Foobar is distributed in the hope that it will be useful,
+ * 28Team is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+ * along with 28Team.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-include_once 'lang/lang.' . SessionManager::getInstance()->getLang() . '.php';
-include_once 'lang/lang.' . SessionManager::getInstance()->getLang() . '.country.php';
+include_once 'lang/lang.' . SessionManager::getLang() . '.php';
+include_once 'lang/lang.' . SessionManager::getLang() . '.country.php';
+
+function tr($id) {
+	return $GLOBALS['lang'][$id];
+}
 ?>

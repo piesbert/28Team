@@ -1,0 +1,86 @@
+/* File: css/forms.css
+ * Author: Sebasian Szymak
+ * 
+ * This file is part of 28Team.
+ *
+ * 28Team is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * 28Team is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with 28Team.  If not, see <http://www.gnu.org/licenses/>.
+ */
+@CHARSET "UTF-8";
+
+.registration_info {
+	margin-top: 0px;
+    margin-bottom: 10px;
+}
+
+.registration_info li {
+    list-style-type: square;
+    font-size: 8pt;
+    color: rgb(139,69,19)
+}
+
+.registration_form {
+    clear: both;
+    overflow: hidden;
+    margin-left: 10px;
+    top: 5px;
+    right: 5px;
+    font-family: verdana, arial, sans serif;
+    font-size: 9pt;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.registration_form input#registration_submit_button {
+    border-color: black;
+    border-style: solid;
+    border-width: thin;
+    margin-top: 10px;
+    margin-left: 20px;
+    background-color: rgb(255, 144, 0);
+}
+
+.registration_text_field {
+    border-color: black;
+    border-style: solid;
+    border-width: thin;
+    margin-left: 20px;
+    width: 300px;
+    background-color: rgb(255, 255, 255);
+}
+
+.registration_text_field_must_be {
+    border-color: black;
+    border-style: solid;
+    border-width: thin;
+    margin-left: 20px;
+    width: 300px;
+    background-color: rgb(255, 255, 255);
+    border-color: rgb(200, 0, 0);
+}
+
+.registration_text_field_wrong {
+    border-color: black;
+    border-style: solid;
+    border-width: thin;
+    margin-left: 20px;
+    width: 300px;
+    background-color: rgb(255, 200, 200);
+    border-color: rgb(200, 0, 0);
+}
+
+.registration_error {
+    font-size: 8pt;
+    margin-left: 20px;
+    color: rgb(255,100,100);
+}

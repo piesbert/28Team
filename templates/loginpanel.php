@@ -1,5 +1,5 @@
 <?php
-/* File: config.php
+/* File: templates/loginpanel.php
  * Author: Sebasian Szymak
  *
  * This file is part of 28Team.
@@ -17,18 +17,17 @@
  * You should have received a copy of the GNU General Public License
  * along with 28Team.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-header('Cache-control: private'); // IE 6 fix
-
-function baseLoader($className) {
-    include_once(strtolower($className) . ".php");
-}
-
-spl_autoload_register('baseLoader');
-
-function clear($text) {
-	return htmlspecialchars(stripslashes(strip_tags(trim($text))), ENT_QUOTES);
-}
-
-include_once 'language.php';
 ?>
+<div class="login_panel">
+<div class="login_form">
+<form action="index.php" method="post">
+<input type="hidden" name="action_login" value="true" />
+<span><?=$this->username;?>:</span>
+<input type="text" name="login_form_login" class="text_field" size="10" />
+<span><?=$this->password;?>:</span>
+<input type="password" name="login_form_password" class="text_field" size="10" />
+<input type="submit" value="<?=$this->login;?>" id="submit_button" />
+</form>
+</div>
+<div class="forgot"><a href="index.php?action=forgot"><span><?=$this->forgot;?></span></a></div>
+</div>
